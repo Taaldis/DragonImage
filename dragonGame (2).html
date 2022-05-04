@@ -1,0 +1,187 @@
+<html>
+
+<style>
+.fireParticle {
+	width: 14px;
+	background : orange;
+	position: absolute;
+}
+</style>
+
+<body>
+  <p><img src="https://news-r.ru/upload/iblock/d70/d70785103a9d6b41237b67d307fbf2ce/f3c0e85c6f2bca793f290c8b46df5070.jpg" height="870"; width="1600"></p>
+ </body>
+
+<div id="dragon" style="height: 60px; width: 60px; background: url(C:/DragonImage/dragonRight.png) no-repeat; background-size: contain; position: absolute; top: 100px; left: 300px;"> 
+</div>
+
+<div id="earth" style="height: 60px; width: 1606px; background: black; position: absolute; top: 820px; left: 0px"> 
+</div>
+
+<div id="castle" style="height: 110px; width: 140px; background: url(C:/DragonImage/castle.png) no-repeat; background-size: contain; position: absolute; top: 715px; left: 1100px"> 
+</div>
+
+<div id="knight" style="height: 35px; width: 20px; background: url(C:/DragonImage/knight.png) no-repeat; background-size: contain; position: absolute; top: 795px; left: 900px"> 
+</div>
+
+<div id="archer" style="height: 35px; width: 20px; background: url(C:/DragonImage/archer.png) no-repeat; background-size: contain; position: absolute; top: 700px; left: 1155px"> 
+</div>
+
+<div id="archer_elf" style="height: 35px; width: 20px; background: url(C:/DragonImage/archer_elf.png) no-repeat; background-size: contain; position: absolute; top: 800px; left: 1055px"> 
+</div>
+
+<div id="archer_light" style="height: 35px; width: 20px; background: url(C:/DragonImage/archer_light.png) no-repeat; background-size: contain; position: absolute; top: 800px; left: 1255px"> 
+</div>
+
+
+<div id="cloud" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 130px; left: 500px"> 
+</div>
+
+<div id="cloud2" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 50px; left: 900px"> 
+</div>
+
+<div id="cloud3" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 50px; left: 100px"> 
+</div>
+
+
+<script>
+
+let dragonDownAccel = 0;
+let fireParticles = [];
+let fireCounter = 0;
+let fireDistance = 200;
+
+let keysPressed = {
+    ArrowUp:    false,
+    ArrowDown:  false,
+    ArrowLeft:  false,
+    ArrowRight: false,
+    Space:      false,
+}
+// This happens every 50ms
+setInterval(function () {
+
+//генерируем случайное число
+function randomNumber(min, max) { 
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+} 
+
+let archer_elfElem = document.getElementById("archer_elf");
+	
+let archer_lightElem = document.getElementById("archer_light");
+
+let archer_elfMove = parseInt(archer_elfElem.style.left) + randomNumber (10,-10);
+	archer_elfElem.style.left = archer_elfMove + "px";
+	 
+let archer_lightMove = parseInt(archer_lightElem.style.left) + randomNumber (10,-10);
+	archer_lightElem.style.left = archer_lightMove + "px";
+	
+}, 800);
+
+
+// This happens every 25ms
+setInterval(function () {
+
+	let dragonElem = document.getElementById("dragon"); // Tank element
+	dragonDownAccel = dragonDownAccel + 0.2;
+	
+	let knightElem = document.getElementById("knight");
+	
+	let earthElem = document.getElementById("earth") ;
+	
+	let knightMoveLeft = parseInt(knightElem.style.left);
+	 knightElem.style.left = knightMoveLeft - 1 + "px";
+	
+	
+	let dragonTop = dragonElem.style.top; // 300px;
+	dragonTop = parseInt(dragonTop) + dragonDownAccel;
+	dragonElem.style.top = dragonTop + "px"; // 297px
+	
+	let positionHorizontal = parseInt(dragonElem.style.left);
+	
+	if (keysPressed.ArrowLeft) {
+        dragonElem.style.left = positionHorizontal - 6 + "px"; 
+       	dragonElem.style.background = "url(C:/DragonImage/dragonLeft.png) no-repeat"; //слетает значение background-size
+		//dragonElem.style.background-size = "contain";
+	}
+		
+    if (keysPressed.ArrowRight) {
+        dragonElem.style.left = positionHorizontal + 6 + "px";
+		dragonElem.style.background = "url(C:/DragonImage/dragonRight.png) no-repeat";
+    }
+	
+	if (keysPressed.Space) {
+	    dragonElem.style.background  = "url(C:/DragonImage/dragonRightwingdown.png) no-repeat";
+	    
+    }
+	
+	if (dragonTop > 780) {
+	   dragonDownAccel = 0;
+	}
+	
+	if (fireCounter > 0) {
+
+		fireCounter = fireCounter - 1;
+		
+		let fireParticle = document.createElement("div");
+		fireParticle.style.top = dragonTop + 20 + "px";
+		fireParticle.style.left = positionHorizontal + 48 + "px";
+		fireParticle.style.height = "4px";
+		fireParticle.setAttribute("data", positionHorizontal)
+		fireParticle.classList.add("fireParticle");
+		document.body.appendChild(fireParticle);
+	}
+	
+	let particleCollection = document.getElementsByClassName("fireParticle");
+	
+	for (let i = 0; i < particleCollection.length; i++) {
+		let thisParticle = particleCollection[i];
+		let particleHposition = parseInt(thisParticle.style.left);
+		let particleTposition = parseInt(thisParticle.style.top);
+		let particleHeight = parseInt(thisParticle.style.height);
+		
+        thisParticle.style.left = particleHposition + 10 + "px";
+		thisParticle.style.height = particleHeight + 3 + "px";
+		thisParticle.style.top = particleTposition + 6 + "px";
+
+		if (particleHposition > parseInt(thisParticle.getAttribute("data")) + fireDistance) {
+			thisParticle.remove();
+		
+		//if (particleHposition > 770 {
+		//	thisParticle.remove();
+		}
+	}	
+	
+		
+}, 30);
+
+
+document.onkeydown = function(e) {
+	
+	if (e.code === "Space")	        { keysPressed.Space = true; }
+    if (e.code === "ArrowLeft")     { keysPressed.ArrowLeft = true; }
+    if (e.code === "ArrowRight")    { keysPressed.ArrowRight = true; }
+    if (e.code === "Space")  { 
+		dragonDownAccel = -5;
+	}
+	if (e.code === "ControlLeft") {
+		startFire();
+	}
+}
+
+
+document.onkeyup = function(e) {
+    if (e.code === "ArrowLeft")     { keysPressed.ArrowLeft = false; }
+    if (e.code === "ArrowRight")    { keysPressed.ArrowRight = false; }
+
+}
+
+function startFire() {
+	fireCounter = 50;
+}
+
+</script>
+
+</html>
