@@ -1,52 +1,71 @@
-<html>
-
+<html><head>
 <style>
 .fireParticle {
 	width: 14px;
 	background : orange;
 	position: absolute;
 }
+
+#dragon {
+  position: absolute;
+  background-size: contain;
+  background-repeat : no-repeat;
+}
+
+#dragon.right {
+    background-image: url("https://draconis.neocities.org/DragonImage/dragonRight.png");
+}
+#dragon.left {
+    background-image: url("https://draconis.neocities.org/DragonImage/dragonLeft.png");
+}
+#dragon.rightFlap {
+    background-image: url("https://draconis.neocities.org/DragonImage/dragonrightwingdown1.png");
+}
+#dragon.leftFlap {
+    background-image: url("https://draconis.neocities.org/DragonImage/dragonleftwingdown.png");
+}
+
+
+
 </style>
 
-<body>
-  <p><img src="https://news-r.ru/upload/iblock/d70/d70785103a9d6b41237b67d307fbf2ce/f3c0e85c6f2bca793f290c8b46df5070.jpg" height="870"; width="1600"></p>
- </body>
+</head><body>
+  <p><img src="https://news-r.ru/upload/iblock/d70/d70785103a9d6b41237b67d307fbf2ce/f3c0e85c6f2bca793f290c8b46df5070.jpg" height="870" ;="" width="1600"></p>
+ 
 
-<div id="dragon" style="height: 60px; width: 60px; background: url(C:/DragonImage/dragonRight.png) no-repeat; background-size: contain; position: absolute; top: 100px; left: 300px;"> 
+<div id="dragon" class="right" style="height: 60px; width: 60px; top: 783.2px; left: 666px;"> 
 </div>
 
 <div id="earth" style="height: 60px; width: 1606px; background: black; position: absolute; top: 820px; left: 0px"> 
 </div>
 
-<div id="castle" style="height: 110px; width: 140px; background: url(C:/DragonImage/castle.png) no-repeat; background-size: contain; position: absolute; top: 715px; left: 1100px"> 
+<div id="castle" style="height: 110px; width: 140px; background: url(https://draconis.neocities.org/DragonImage/castle.png) no-repeat; background-size: contain; position: absolute; top: 715px; left: 1100px"> 
 </div>
 
-<div id="knight" style="height: 35px; width: 20px; background: url(C:/DragonImage/knight.png) no-repeat; background-size: contain; position: absolute; top: 795px; left: 900px"> 
+<div id="knight" class="enemy" style="height: 35px; width: 20px; background: url(&quot;https://draconis.neocities.org/DragonImage/knight.png&quot;) 0% 0% / contain no-repeat; position: absolute; top: 795px; left: -8195px;"> 
 </div>
 
-<div id="archer" style="height: 35px; width: 20px; background: url(C:/DragonImage/archer.png) no-repeat; background-size: contain; position: absolute; top: 700px; left: 1155px"> 
+<div id="archer" class="enemy" style="height: 35px; width: 20px; background: url(https://draconis.neocities.org/DragonImage/archer.png) no-repeat; background-size: contain; position: absolute; top: 700px; left: 1155px"> 
 </div>
 
-<div id="archer_elf" style="height: 35px; width: 20px; background: url(C:/DragonImage/archer_elf.png) no-repeat; background-size: contain; position: absolute; top: 800px; left: 1055px"> 
+<div id="archer_elf" class="enemy" style="height: 35px; width: 20px; background: url(&quot;https://draconis.neocities.org/DragonImage/archer_elf.png&quot;) 0% 0% / contain no-repeat; position: absolute; top: 800px; left: 1186px;"> 
 </div>
 
-<div id="archer_light" style="height: 35px; width: 20px; background: url(C:/DragonImage/archer_light.png) no-repeat; background-size: contain; position: absolute; top: 800px; left: 1255px"> 
+<div id="archer_light" class="enemy" style="height: 35px; width: 20px; background: url(&quot;https://draconis.neocities.org/DragonImage/archer_light.png&quot;) 0% 0% / contain no-repeat; position: absolute; top: 800px; left: 1088px;"> 
 </div>
 
 
-<div id="cloud" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 130px; left: 500px"> 
+<div id="cloud" class="cloud" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 130px; left: 500px"> 
 </div>
 
-<div id="cloud2" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 50px; left: 900px"> 
+<div id="cloud2" class="cloud" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 50px; left: 900px"> 
 </div>
 
-<div id="cloud3" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 50px; left: 100px"> 
+<div id="cloud3" class="cloud" style="height: 80px; width: 200px; background: url(https://clipart-db.ru/file_content/rastr/cloud_010.png) no-repeat; background-size: contain; position: absolute; top: 50px; left: 100px"> 
 </div>
 
 
 <script>
-
-//comment
 
 let dragonDownAccel = 0;
 let fireParticles = [];
@@ -63,7 +82,7 @@ let keysPressed = {
 // This happens every 50ms
 setInterval(function () {
 
-//генерируем случайное число
+//ГђВіГђВµГђВЅГђВµГ‘в‚¬ГђВёГ‘в‚¬Г‘Ж’ГђВµГђВј Г‘ВЃГђВ»Г‘Ж’Г‘вЂЎГђВ°ГђВ№ГђВЅГђВѕГђВµ Г‘вЂЎГђВёГ‘ВЃГђВ»ГђВѕ
 function randomNumber(min, max) { 
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -89,14 +108,24 @@ setInterval(function () {
 	let dragonElem = document.getElementById("dragon"); // Tank element
 	dragonDownAccel = dragonDownAccel + 0.2;
 	
+	if (dragonDownAccel > -1 ) {
+      if (dragonElem.classList.contains("rightFlap") ) {
+        dragonElem.classList.add("right");
+        dragonElem.classList.remove("rightFlap");
+      }
+      if (dragonElem.classList.contains("leftFlap") ) {
+        dragonElem.classList.add("left");
+        dragonElem.classList.remove("leftFlap");
+      }
+	}
+	
 	let knightElem = document.getElementById("knight");
 	
 	let earthElem = document.getElementById("earth") ;
 	
 	let knightMoveLeft = parseInt(knightElem.style.left);
 	 knightElem.style.left = knightMoveLeft - 1 + "px";
-	
-	
+
 	let dragonTop = dragonElem.style.top; // 300px;
 	dragonTop = parseInt(dragonTop) + dragonDownAccel;
 	dragonElem.style.top = dragonTop + "px"; // 297px
@@ -104,20 +133,44 @@ setInterval(function () {
 	let positionHorizontal = parseInt(dragonElem.style.left);
 	
 	if (keysPressed.ArrowLeft) {
-        dragonElem.style.left = positionHorizontal - 6 + "px"; 
-       	dragonElem.style.background = "url(C:/DragonImage/dragonLeft.png) no-repeat"; //слетает значение background-size
-		//dragonElem.style.background-size = "contain";
+        dragonElem.style.left = positionHorizontal - 6 + "px";
+        
+        if (dragonElem.classList.contains("rightFlap") ) {
+            dragonElem.classList.add("leftFlap");
+            dragonElem.classList.remove("rightFlap");
+        }
+        if (dragonElem.classList.contains("right") ) {
+          dragonElem.classList.add("left");
+          dragonElem.classList.remove("right");
+        }
 	}
 		
-    if (keysPressed.ArrowRight) {
-        dragonElem.style.left = positionHorizontal + 6 + "px";
-		dragonElem.style.background = "url(C:/DragonImage/dragonRight.png) no-repeat";
-    }
+  if (keysPressed.ArrowRight) {
+      dragonElem.style.left = positionHorizontal + 6 + "px";
+      
+        if (dragonElem.classList.contains("leftFlap") ) {
+            dragonElem.classList.add("rightFlap");
+            dragonElem.classList.remove("leftFlap");
+        }
+        if (dragonElem.classList.contains("left") ) {
+          dragonElem.classList.add("right");
+          dragonElem.classList.remove("left");
+        }
+  }
 	
 	if (keysPressed.Space) {
-	    dragonElem.style.background  = "url(C:/DragonImage/dragonRightwingdown.png) no-repeat";
-	    
+  
+    if (dragonElem.classList.contains("right") ) {
+      dragonElem.classList.remove("right");
+      dragonElem.classList.add("rightFlap");
     }
+    
+    if (dragonElem.classList.contains("left") ) {
+      dragonElem.classList.remove("left");
+      dragonElem.classList.add("leftFlap");
+    }
+    
+  }
 	
 	if (dragonTop > 780) {
 	   dragonDownAccel = 0;
@@ -137,23 +190,49 @@ setInterval(function () {
 	}
 	
 	let particleCollection = document.getElementsByClassName("fireParticle");
+	let enemyCollection = document.getElementsByClassName("enemy");
+	
+	let earthTop = parseInt(document.getElementById("earth").style.top);
 	
 	for (let i = 0; i < particleCollection.length; i++) {
 		let thisParticle = particleCollection[i];
 		let particleHposition = parseInt(thisParticle.style.left);
 		let particleTposition = parseInt(thisParticle.style.top);
 		let particleHeight = parseInt(thisParticle.style.height);
+		let particleBottom = particleTposition + particleHeight;
 		
-        thisParticle.style.left = particleHposition + 10 + "px";
-		thisParticle.style.height = particleHeight + 3 + "px";
+    thisParticle.style.left = particleHposition + 10 + "px";
 		thisParticle.style.top = particleTposition + 6 + "px";
+		
+		if (particleBottom > earthTop) {
+	  	  let newParticleHeight = particleHeight - (particleBottom - earthTop);
+	  	  
+	  	  if (newParticleHeight > 0) {
+	    		thisParticle.style.height = newParticleHeight + "px";
+	  	  }
+	  	  else {
+    			thisParticle.remove();
+    			continue;
+	  	  }
+		}
+		else {
+  		thisParticle.style.height = particleHeight + 3 + "px";
+		}
 
 		if (particleHposition > parseInt(thisParticle.getAttribute("data")) + fireDistance) {
 			thisParticle.remove();
-		
-		//if (particleHposition > 770 {
-		//	thisParticle.remove();
+			continue;
 		}
+		
+		
+		// if hit target
+		
+		for (let j = 0; j < enemyCollection.length; j++) {
+		  let thisEnemy = enemyCollection[j];
+		  
+		  
+		}
+	
 	}	
 	
 		
@@ -177,6 +256,7 @@ document.onkeydown = function(e) {
 document.onkeyup = function(e) {
     if (e.code === "ArrowLeft")     { keysPressed.ArrowLeft = false; }
     if (e.code === "ArrowRight")    { keysPressed.ArrowRight = false; }
+    if (e.code === "Space")       { keysPressed.Space = false; }
 
 }
 
@@ -186,4 +266,4 @@ function startFire() {
 
 </script>
 
-</html>
+</body></html>
