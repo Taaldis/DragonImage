@@ -177,33 +177,72 @@ setInterval(function () {
 	}
 	
 	if (fireCounter > 0) {
-
+	
+		// уменьшаем счетчик времени на 1
 		fireCounter = fireCounter - 1;
 		
+		// создаём div - пока что пустой контейнер с параметрами стиля по id fireParticle (см. выше)
 		let fireParticle = document.createElement("div");
+		
+		// задать положение частички пламени относительно картинки дракона
 		fireParticle.style.top = dragonTop + 20 + "px";
+		//ПЕРВОЕ ИЗМЕНЕНИЕ
+		if (dragonElem.classList.contains("right") || dragonElem.classList.contains("rightFlap") ) {
 		fireParticle.style.left = positionHorizontal + 48 + "px";
+		   }
+		
+		if (dragonElem.classList.contains("left") || dragonElem.classList.contains("leftFlap") ) {
+		fireParticle.style.left = positionHorizontal + "px";
+		}
+		
+		// задаем высоту частички пламени
 		fireParticle.style.height = "4px";
+		
+		//установить атрибут частички пламени, который называется data, равным значению positionHorizontal
 		fireParticle.setAttribute("data", positionHorizontal)
+		
+		//добавляем в список классов дива класс с названием fireParticle
 		fireParticle.classList.add("fireParticle");
+		
+		//привяжи свежесозданный див частички пламени как дочерний для элемента body, который выводится на страницу браузера
 		document.body.appendChild(fireParticle);
 	}
 	
+	//собираем все созданные не предыдущих итерациях дивы частичек пламени в коллекцию
 	let particleCollection = document.getElementsByClassName("fireParticle");
 	let enemyCollection = document.getElementsByClassName("enemy");
 	
 	let earthTop = parseInt(document.getElementById("earth").style.top);
 	
 	for (let i = 0; i < particleCollection.length; i++) {
+	
+	//называем i-тый элемент кучки частичек именем "thisParticle"
 		let thisParticle = particleCollection[i];
+		
+		//получаем левое, верхнее положение этого элемента и его высоту 
 		let particleHposition = parseInt(thisParticle.style.left);
 		let particleTposition = parseInt(thisParticle.style.top);
 		let particleHeight = parseInt(thisParticle.style.height);
+		//вычисляем нижнюю границу элемента как сумму его верхней границы и высоты
 		let particleBottom = particleTposition + particleHeight;
-		
-    thisParticle.style.left = particleHposition + 10 + "px";
+	
+		//смещаем текущую частичку вправо и вниз
+		//ВТОРОЕ ИЗМЕНЕНИЕ
+		if (dragonElem.classList.contains("right") || dragonElem.classList.contains("rightFlap") ) {
+		thisParticle.style.left = particleHposition + 10 + "px";
+		}
+		//if (dragonElem.classList.contains("rightFlap") || dragonElem.classList.contains("rightFlap") ) {
+		//thisParticle.style.left = particleHposition + 10 + "px";
+		//}
+		if (dragonElem.classList.contains("left") || dragonElem.classList.contains("leftFlap") ) {
+		thisParticle.style.left = particleHposition - 10 + "px";
+		}
+		//if (dragonElem.classList.contains("leftFlap") || dragonElem.classList.contains("leftFlap") ) {
+		//thisParticle.style.left = particleHposition - 10 + "px";
+		//}
 		thisParticle.style.top = particleTposition + 6 + "px";
 		
+		//чтобы пламя не проходило сквозь землю
 		if (particleBottom > earthTop) {
 	  	  let newParticleHeight = particleHeight - (particleBottom - earthTop);
 	  	  
@@ -218,12 +257,21 @@ setInterval(function () {
 		else {
   		thisParticle.style.height = particleHeight + 3 + "px";
 		}
-
+		// закончили ограничивать землей
+		
+//ограничиваем конец пламени: если положение частички получилось больше, чем точка начала огнеметания + заданная длина пламени (200, см. начало кода) - то такую частичку удаляем.
+		if (dragonElem.classList.contains("right") || dragonElem.classList.contains("rightFlap") ) {
 		if (particleHposition > parseInt(thisParticle.getAttribute("data")) + fireDistance) {
+		thisParticle.remove();
+			continue;
+		}
+		}
+		if (dragonElem.classList.contains("left") || dragonElem.classList.contains("leftFlap") ) {
+		if (particleHposition < parseInt(thisParticle.getAttribute("data")) - fireDistance) {
 			thisParticle.remove();
 			continue;
 		}
-		
+		}
 		
 		// if hit target
 		
